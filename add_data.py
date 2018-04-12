@@ -2,9 +2,11 @@
 ######################### ---------- INFO ---------- ###########################
 ################################################################################
 
-## FINAL PROJECT FOR SI 507 // WINTER 2018
+### --- FINAL PROJECT FOR SI 507 // WINTER 2018 --------------------------------
 
-# Populating Tables in Database
+## Creating "adoptable_dogs" database
+## Creating tables in database
+## Populating tables in database
 
 
 
@@ -91,14 +93,13 @@ def populate_DB():
 	conn.close()
 
 
+
 ################################################################################
 ###################### ---------- RUNNING DATA ---------- ######################
 ################################################################################
-
-##### --- INITIALIZE -----------------------------------------------------------
-
-# if __name__ == '__main__':
 	
-	## Create Breeds Database
-	# create_DB()
+## Create Database
+# create_DB()
+
+## Populate Database
 populate_DB()
