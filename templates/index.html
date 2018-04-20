@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/static/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+		<title>Thanhthu Nguyen's Final Project</title>
+	</head>
+
+	<body>
+		<div class = "header">
+			<h1> DID YOU KNOW?</h1>
+			<p>According to Wikipedia, there are 514 different types of dog breeds.</p>
+		</div>
+
+		<div class = "button">
+			<p><a href = "/rescue"><strong>NEXT >> </strong></a></p>
+		</div>
+
+		<div class = "wikibreeds">
+			<table class = "wikitable1">
+				<tr>
+					<th></th>
+					<th>BREED</th>
+					<th>URL</th>
+				</tr>
+
+				{% for each in wiki_data_1 %}
+				<tr>
+					<td><strong>{{each[0]}}</strong></td>
+					<td>{{each[1]}}</td>
+					<td class = "lastcell"><a href = "{{each[2]}}">Information</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+			<table class = "wikitable2">
+				<tr>
+					<th></th>
+					<th>BREED</th>
+					<th>URL</th>
+				</tr>
+
+				{% for each in wiki_data_2 %}
+				<tr>
+					<td><strong>{{each[0]}}</strong></td>
+					<td>{{each[1]}}</td>
+					<td class = "lastcell"><a href = "{{each[2]}}">Information</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/static/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+		<title>Thanhthu Nguyen's Final Project</title>
+	</head>
+
+	<body>
+		<div class = "header">
+			<h1>THAT DOESN'T INCLUDE MUTTS AND MIXES THOUGH!</h1>
+			<p>Have you considered adopting a dog from your local animal shelter or rescue organization?</p>
+		</div>
+
+		<div class = "button">
+			<p><a href = "/"><strong> << PREV</strong></a></p>
+			<p><a href = "/"><strong>HOME</strong></a></p>
+			<p><a href = ""><strong>NEXT >> </strong></a></p>
+		</div>
+
+		<p class = "centertext">The table below illustrates some shelters that can be found in or near Ann Arbor, MI.<br/>
+		Alternatively, these shelters can also be viewed on a map.</p>
+
+		<div class = "button">
+			<p><a href = "/rescuemap" target = "_blank"><strong>MAP</strong></a></p>
+		</div>
+
+		<form action = "/rescue" method = "POST" class = "sortform">
+			<div class = "sort">
+				<strong>SORT BY:</strong><br/>
+				<input type="radio" name="sortby" value="name"/> Name <br/>
+				<input type="radio" name="sortby" value="city"/> City <br/>
+				<input type="radio" name="sortby" value="state"/> State <br/>
+				<input type="radio" name="sortby" value="zipcode"/> Zipcode <br/>
+			</div>
+			<div class = "order">
+				<strong>ORDER BY:</strong><br/>
+				<input type="radio" name="sortorder" value="asc"/> Ascending <br/>
+				<input type="radio" name="sortorder" value="desc"/> Descending <br/>
+			</div>
+			<div>
+				<p class = "centertext"><input type="submit" name="update" value="Update"/></p>
+			</div>
+		</form>
+
+		<div>
+			<table class = "shelters">
+				<tr>
+					<th>NAME</th>
+					<th>CITY</th>
+					<th>STATE</th>
+					<th>ZIPCODE</th>
+				</tr>
+
+				{% for each in shelter_list %}
+				<tr>
+					<td>{{each[0]}}</td>
+					<td>{{each[1]}}</td>
+					<td>{{each[2]}}</td>
+					<td class = "lastcell">{{each[3]}}</td>
+				{% endfor %}
+			</table>
+		</div>
+	</body>
+</html>

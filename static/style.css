@@ -1,0 +1,131 @@
+/* ##################################################################################### */
+/* #####  GENERAL  ##################################################################### */
+/* ##################################################################################### */
+body {
+	width: 1024px;
+	margin: auto;
+
+	font-family:'Roboto', 'Tahoma', sans-serif;
+}
+
+
+.header {
+	margin: 0px 0px 20px 0px;
+
+	text-align: center;
+}
+
+.centertext {
+	text-align: center;
+}
+
+
+/* ----- BUTTON ------------------------------------------------------------------------ */
+.button {
+	margin: 0px 0px 30px 0px;
+	text-align: center;
+}
+
+.button p {
+	width: 75px;
+	background-color: lightgray;
+	margin: 0px auto;
+	padding: 5px;
+	display: inline-block;
+
+	text-align: center;
+}
+
+.button a {
+	color: black;
+}
+
+
+/* ----- CELLS ------------------------------------------------------------------------- */
+tr {
+	background-color: white;
+}
+
+tr:nth-child(even){
+	background-color: aliceblue;
+}
+
+th {
+	border-bottom: 1px solid black;
+	padding: 5px 10px;
+}
+
+td {
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+
+	padding: 5px 10px;
+}
+
+.lastcell {
+	border-right: 1px solid black;
+}
+
+
+a {
+	text-decoration: none;
+	color: steelblue;
+}
+
+
+/* ##################################################################################### */
+/* #####  INDEX PAGE  ################################################################## */
+/* ##################################################################################### */
+
+
+/* ----- TABLES ------------------------------------------------------------------------ */
+.wikitable1 {
+	width: 45%;
+	margin-left: 4.5%;
+	display: inline-block;
+
+	text-align: left;
+}
+
+.wikitable2 {
+	width: 45%;
+	display: inline-block;
+	float: right;
+
+	text-align: left;
+}
+
+.wikibreeds {
+	margin-bottom: 50px;
+}
+
+
+
+/* ##################################################################################### */
+/* #####  RESCUE PAGE  ################################################################# */
+/* ##################################################################################### */
+
+/* ----- SORTING ----------------------------------------------------------------------- */
+.sortform {
+	width: 25%;
+	margin: auto;
+
+}
+.sort {
+	width: 100px;
+	display: inline-block;
+	vertical-align: top;
+	margin: 0px 0px 0px 14%;
+}
+
+.order {
+	width: 45%;
+	display: inline-block;
+}
+
+
+/* ----- TABLES ------------------------------------------------------------------------ */
+.shelters {
+	text-align: left;
+	margin: auto;
+}

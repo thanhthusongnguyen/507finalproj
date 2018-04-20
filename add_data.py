@@ -18,11 +18,11 @@
 import sqlite3
 import json
 import requests
-import secrets
 from bs4 import BeautifulSoup
 
 
 ### --- IMPORTING OTHER FILES --------------------------------------------------
+import secrets
 import get_data
 
 

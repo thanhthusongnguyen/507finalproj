@@ -2,113 +2,232 @@
 ######################### ---------- INFO ---------- ###########################
 ################################################################################
 
-## FINAL PROJECT FOR SI 507 // WINTER 2018
+### --- FINAL PROJECT FOR SI 507 // WINTER 2018 --------------------------------
+
+## 
 
 
 ################################################################################
 ######################### ---------- SETUP ---------- ##########################
 ################################################################################
+
+### --- IMPORTING MODULES ------------------------------------------------------
+import sqlite3
+
 import json
 import requests
-import secrets
 from bs4 import BeautifulSoup
 
 from flask import Flask, render_template
 import plotly.plotly as py
+import plotly.tools as tls
 import webbrowser
 
 
-
-################################################################################
-######################### ---------- CACHE ---------- ##########################
-################################################################################
-
-##### --- SETTING UP CACHE -----------------------------------------------------
-
-CACHE_FNAME = "finalproj_cache.json"
-
-try:
-	cache_file = open(CACHE_FNAME, "r")
-	cache_contents = cache_file.read()
-	CACHE_DICTION = json.loads(cache_contents)
-	cache_file.close()
-
-except:
-	CACHE_DICTION = {}
+### --- IMPORTING OTHER FILES --------------------------------------------------
+import secrets
 
 
 
 ################################################################################
-###################### ---------- WEB CRAWLING ---------- ######################
+#################### ---------- DATA PROCESSING ---------- #####################
 ################################################################################
 
-##### --- UNIQUE KEY -----------------------------------------------------------
+### --- DISPLAY WIKIPEDIA BREED INFO -------------------------------------------
+def get_wiki(range):
+	span = range.split()
 
-def get_unique_key(url):
-	return (url)
+	## Connect to Database
+	DBNAME = "adoptable_dogs.db"
+	try:
+		conn = sqlite3.connect(DBNAME)
+
+	except Error as e:
+		print(e)
+
+	cur = conn.cursor()
+
+	## Grab Wiki Data
+	stmt = """
+		SELECT *
+		FROM wiki_breeds
+		WHERE wiki_breeds_id >= {}
+		AND wiki_breeds_id <= {}
+	""".format(int(span[0]), int(span[1]))
+
+	cur.execute(stmt)
 
 
-##### --- GRABBING DATA FROM DOG BREEDS WIKIPEDIA PAGE -------------------------
+	## Return List
+	wiki_list = []
 
-def scrape_wiki(url):
-	unique_ident = get_unique_key(url)
+	for each in cur:
+		wiki_list.append(each)
 
-	if unique_ident in CACHE_DICTION:
-		print("Getting cached data...\n")
 
-		return CACHE_DICTION[unique_ident]
+	## Close Database Connection
+	conn.commit()
+	conn.close()
+
+	return wiki_list
+
+
+### --- SHELTER INFO -----------------------------------------------------------
+def get_shelters(sortby = "name", sortorder = "asc"):
+
+	## Connect to Database
+	DBNAME = "adoptable_dogs.db"
+	try:
+		conn = sqlite3.connect(DBNAME)
+
+	except Error as e:
+		print(e)
+
+	cur = conn.cursor()
+
+	## Grab Shelter Data
+	stmt = """
+		SELECT S.name, C.name, St.name, S.zipcode, S.latitude, S.longitude
+		FROM shelter AS S
+		JOIN city AS C
+			ON S.city = C.city_id
+		JOIN state AS St
+			ON S.state = ST.state_id	
+	"""
+
+	cur.execute(stmt)
+
+
+	## Return List
+	shelter_list = []
+
+	for each in cur:
+		shelter_list.append(each)
+
+
+	## Sort By/Order
+	if sortby == "name":
+		sortcol = 0
+
+	elif sortby == "city":
+		sortcol = 1
+
+	elif sortby == "state":
+		sortcol = 2
+
+	elif sortby == "zipcode":
+		sortcol = 4
 
 	else:
-		print("Making a request for new data...\n")
+		sortcol = 0
 
-		resp = requests.get(url)
-		CACHE_DICTION[unique_ident] = resp.text
-		dumped_json_cache = json.dumps(CACHE_DICTION)
+	rev = (sortorder == 'desc')
 
-		fw = open(CACHE_FNAME, "w")
-		fw.write(dumped_json_cache)
-		fw.close()
+	sorted_list = sorted(shelter_list, key = lambda row: row[sortcol], reverse = rev)
 
-		return CACHE_DICTION[unique_ident]
+	return sorted_list
 
 
-##### --- WEBSCRAPING DOG BREEDS WIKIPEDIA PAGE --------------------------------
+### --- MAP SHELTER INFO -------------------------------------------------------
 
-def webscape_wiki(data):
-	soup = BeautifulSoup(data, "html.parser")
-	table = soup.find_all(class_ = "wikitable")
-
-	list_breeds = []
-
-	for rows in table:
-		row = rows.find_all("tr")
-
-		for cell in row:
-			data = cell.find("td")
-
-			if 'bs4' in str(type(data)):
-				breed = data.strip
-				list_breeds.append(breed)
+def plot_shelters():
 	
-			
+	shelter_list = get_shelters()
+
+	## Grabbing Values
+	lat_values = []
+	lon_values = []
+	text_values = []
+
+	for each in shelter_list:
+		lat_values.append(each[4])
+		lon_values.append(each[5])
+		text_values.append(each[0])
 
 
+	## Creating Trace
+	trace0 = dict(
+		type = 'scattergeo',
+		locationmode = 'USA-states',
+		lon = lon_values,
+		lat = lat_values,
+		text = text_values,
+		mode = 'markers',
+		marker = dict(
+			size = 15,
+			symbol = 'circle',
+			color = 'rgb(102, 114, 146)',
+			)
+		)
+
+	data = [trace0]
+
+	
+	## Scaling and Centering Map
+	min_lat = 10000
+	max_lat = -10000
+	min_lon = 10000
+	max_lon = -10000
 
 
+	### --- Redefining the Boundary Lines --- ###
+	for each in lat_values:
+		every = float(each)
+
+		if every < min_lat:
+			min_lat = every
+
+		if every > max_lat:
+			max_lat = every
+
+	for each in lon_values:
+		every = float(each)
+
+		if every < min_lon:
+			min_lon = every
+
+		if every > max_lon:
+			max_lon = every
+
+	center_lat = (max_lat + min_lat) / 2
+	center_lon = (max_lon + min_lon) / 2
+
+	max_range = max(abs(max_lat - min_lat), abs(max_lon - min_lon))
+	padding = max_range * .10
+	
+	lat_axis = [min_lat - padding, max_lat + padding]
+	lon_axis = [min_lon - padding, max_lon + padding]
+
+
+	## Title
+	title = "Animal Shelters & Rescue Organizations Near Ann Arbor, MI"
+
+
+	## Layout
+	layout = dict(
+		geo = dict(
+			scope = 'usa',
+			projection = dict(type = 'albers usa'),
+			showland = True,
+			landcolor = "rgb(241, 227, 221)",
+			subunitcolor = "rgb(141, 157, 182)",
+			countrycolor = "rgb(188, 202, 214)",
+			lataxis = {'range': lat_axis},
+			lonaxis = {'range': lon_axis},
+			center = {'lat': center_lat, 'lon': center_lon},
+			countrywidth = 3,
+			subunitwidth = 3
+			)
+		)
+
+	## Plotting Map 
+	fig = dict(data = data, layout = layout)
+	py.plot(fig, validate = False, filename = title)
+
+	return None
 
 
 
 ################################################################################
 ###################### ---------- RUNNING DATA ---------- ######################
 ################################################################################
-
-##### --- INITIALIZE -----------------------------------------------------------
-
-if __name__ == '__main__':
-	
-	## Grabbing Data from Wikipedia
-	url = "https://en.wikipedia.org/wiki/List_of_dog_breeds"
-	wiki_data = scrape_wiki(url)
-
-	## Webscraping Page
-	webscape_wiki(wiki_data)
