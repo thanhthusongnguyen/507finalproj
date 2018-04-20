@@ -59,12 +59,12 @@ def scrape_wiki(url):
 	unique_ident = get_unique_key(url)
 
 	if unique_ident in CACHE_DICTION:
-		print("Getting cached data...\n")
+		print("Getting cached Wikipedia data...\n")
 
 		return CACHE_DICTION[unique_ident]
 
 	else:
-		print("Making a request for new data...\n")
+		print("Making a request for Wikipedia data...\n")
 
 		resp = requests.get(url)
 		CACHE_DICTION[unique_ident] = resp.text
@@ -145,12 +145,12 @@ def get_breeds():
 	unique_ident = params_unique_combination(baseurl, params_diction)
 
 	if unique_ident in CACHE_DICTION:
-		print("Getting data from cache...\n")
+		print("Getting cached PetFinder Breed data...\n")
 		PF_breeds_data = CACHE_DICTION[unique_ident]
 		return PF_breeds_data
 
 	else:
-		print("Making request to API...\n")
+		print("Making request to PetFinder API for Breeds List...\n")
 		PF_breeds_resp = requests.get(baseurl, params = params_diction)
 		PF_breeds_text = PF_breeds_resp.text
 		CACHE_DICTION[unique_ident] = json.loads(PF_breeds_text)
@@ -175,12 +175,12 @@ def get_shelters(term):
 	unique_ident = params_unique_combination(baseurl, params_diction)
 
 	if unique_ident in CACHE_DICTION:
-		print("Getting data from cache...\n")
+		print("Getting cached PetFinder Shelter data...\n")
 		pf_shelter_data = CACHE_DICTION[unique_ident]
 		return pf_shelter_data
 
 	else:
-		print("Making request to API...\n")
+		print("Making request to PetFinder API for Shelter Infomation...\n")
 		pf_shelter_resp = requests.get(baseurl, params = params_diction)
 		pf_shelter_text = pf_shelter_resp.text
 		CACHE_DICTION[unique_ident] = json.loads(pf_shelter_text)
@@ -202,12 +202,12 @@ def get_oneshelter(term):
 	unique_ident = params_unique_combination(baseurl, params_diction)
 
 	if unique_ident in CACHE_DICTION:
-		print("Getting data from cache...\n")
+		print("Getting cached PetFinder Shelter data...\n")
 		pf_oneshelter = CACHE_DICTION[unique_ident]
 		return pf_oneshelter
 
 	else:
-		print("Making request to API...\n")
+		print("Making request to PetFinder API for Shelter Infomation...\n")
 		pf_oneshelter_resp = requests.get(baseurl, params = params_diction)
 		pf_oneshelter_text = pf_oneshelter_resp.text
 		CACHE_DICTION[unique_ident] = json.loads(pf_oneshelter_text)
@@ -235,12 +235,12 @@ def get_PF_data(terms):
 	unique_ident = params_unique_combination(baseurl, params_diction)
 
 	if unique_ident in CACHE_DICTION:
-		print("Getting data from cache...\n")
+		print("Getting cached PetFinder Dog Records data...\n")
 		pf_data = CACHE_DICTION[unique_ident]
 		return pf_data
 
 	else:
-		print("Making request to API...\n")
+		print("Making request to PetFinder API for Dog Records...\n")
 		pf_resp = requests.get(baseurl, params = params_diction)
 		pf_text = pf_resp.text
 		CACHE_DICTION[unique_ident] = json.loads(pf_text)

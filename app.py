@@ -4,7 +4,9 @@
 
 ### --- FINAL PROJECT FOR SI 507 // WINTER 2018 --------------------------------
 
-## 
+## Total: 5 Different Routes
+## Display Pages: Index, Rescue, Rescue Map, Breeds Chart, Adoptable Dogs
+## POST Route: Search Breeds
 
 
 
@@ -16,7 +18,6 @@
 from flask import Flask, render_template, request, redirect
 import plotly.plotly as py
 import plotly.graph_objs as go
-import webbrowser
 
 
 ### --- IMPORTING OTHER FILES --------------------------------------------------
@@ -54,9 +55,31 @@ def rescue():
 
 
 ### --- RESCUE MAP ------------------------------------------------------------------
-@app.route('/rescuemap', methods = ['GET', 'POST'])
+@app.route('/rescuemap')
 def rescuemap():
 	return render_template("rescuemap.html")
+
+
+### --- BREEDS CHART ------------------------------------------------------------------
+@app.route('/breedschart')
+def breedschart():
+	return render_template("breedschart.html")
+
+
+### --- BREEDS SEARCH ------------------------------------------------------------------
+@app.route('/adoptabledogs', methods = ['GET', 'POST'])
+def adoptabledogs():
+	breeds_list = model.breeds_list()
+
+	return render_template("adoptabledogs.html", breeds_list = breeds_list, search_results = model.get_search_results())
+
+
+@app.route('/searchbreed', methods = ["POST"])
+def searchbreed():
+	breed = request.form["breed"]
+	model.search_records(breed)
+
+	return redirect('/adoptabledogs')
 
 
 

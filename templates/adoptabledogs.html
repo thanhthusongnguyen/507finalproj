@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/static/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+		<title>Thanhthu Nguyen's Final Project</title>
+	</head>
+
+	<body>
+		<div class = "header">
+			<h1>FIND A PERFECTLY IMPERFECT DOG!</h1>
+			<p>Take some time to explore through our records and read about the unique dogs up for adoption.<br/>You never know, perhaps you'll discover a new family member today.</p>
+		</div>
+
+		<div class = "button">
+			<p><a href = "/breedschart"><strong> << PREV</strong></a></p>
+			<p><a href = "/"><strong>HOME</strong></a></p>
+		</div>
+
+		<form action = "/searchbreed" method = "POST" class = "search">
+			<p class = "inline">
+				Enter Breed: <input type = text name = "breed"/>
+			</p>
+			<p class = "inline">
+				<input type = submit name = "Submit"/>
+			</p>
+		</form>
+
+		<div class = "display">
+			<table>
+				<tr>
+					<th>BREED</th>
+				</tr>
+
+				{% for each in breeds_list %}
+				<tr>
+					<td>{{each}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+
+		<div class = "records">
+
+			<table>
+				{% for each in search_results %}
+				<tr>
+					<td>{{each[0]}}</td>
+				</tr>
+				<tr>
+					<td>{{each[1]}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+
+
+	</body>
+</html>
