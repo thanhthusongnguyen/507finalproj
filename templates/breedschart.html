@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	<!-- ///// HEADER /////////////////////////////////////////////////////////////////// -->
 	<head>
 		<link rel="stylesheet" href="/static/style.css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -7,19 +8,26 @@
 		<title>Thanhthu Nguyen's Final Project</title>
 	</head>
 
+
+	<!-- ///// BODY ///////////////////////////////////////////////////////////////////// -->
 	<body>
 		<div class = "header">
 			<h1>BREAKDOWN OF AVAILABLE DOGS FOR ADOPTION <br/>NEAR ANN ARBOR, MI</h1>
 			<p>Of the 514 dog breeds, a preliminary search for adoptable dogs in the area around Ann Arbor, MI<br/>show at least 58 different types of dog breeds; this also includes "Mixed Breed" as a choice as well.</p>
 		</div>
 
+		<!-- ///// NAVIGATION BUTTONS /////////////////////////////////////////////////// -->
 		<div class = "button">
 			<p><a href = "/rescue"><strong> << PREV</strong></a></p>
 			<p><a href = "/"><strong>HOME</strong></a></p>
 			<p><a href = "/adoptabledogs"><strong>NEXT >> </strong></a></p>
 		</div>
 
-		<p class = "centertext">Ranging from Pit Butt Terriers to Great Danes to Siberian Huskies, there is no one type of dog that needs a loving home.</p>
+		<!-- ///// PIE CHART DISPLAY //////////////////////////////////////////////////// -->
+		<!-- ///// Text ///// -->
+		<p class = "centertext">Ranging from Pit Bull Terriers to Great Danes to Siberian Huskies, <br/>you can adopt almost any type of dog you're looking for and provide a shelter dog with a loving home.</p>
+
+		<!-- ///// Embeded Plotly Pie Chart ///// -->
 		<div class = "centertext">
 			<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~thanhthusongnguyen/34.embed" height="700" width="100%"></iframe>
 		</div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	<!-- ///// HEADER /////////////////////////////////////////////////////////////////// -->
 	<head>
 		<link rel="stylesheet" href="/static/style.css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -7,17 +8,22 @@
 		<title>Thanhthu Nguyen's Final Project</title>
 	</head>
 
+
+	<!-- ///// BODY ///////////////////////////////////////////////////////////////////// -->
 	<body>
 		<div class = "header">
-			<h1>FIND A PERFECTLY IMPERFECT DOG!</h1>
-			<p>Take some time to explore through our records and read about the unique dogs up for adoption.<br/>You never know, perhaps you'll discover a new family member today.</p>
+			<h1>FIND A PERFECTLY IMPERFECT RESCUE DOG!</h1>
+			<p>Take some time to explore through our records and read about the unique dogs up for adoption.<br/>You never know, perhaps you'll discover a new family member who's just waiting for you to bring them home.</p>
 		</div>
 
+		<!-- ///// NAVIGATION BUTTONS /////////////////////////////////////////////////// -->
 		<div class = "button">
 			<p><a href = "/breedschart"><strong> << PREV</strong></a></p>
 			<p><a href = "/"><strong>HOME</strong></a></p>
 		</div>
 
+
+		<!-- ///// BREED SEARCH FORM //////////////////////////////////////////////////// -->
 		<form action = "/searchbreed" method = "POST" class = "search">
 			<p class = "inline">
 				Enter Breed: <input type = text name = "breed"/>
@@ -27,6 +33,7 @@
 			</p>
 		</form>
 
+		<!-- ///// BREED LIST DISPLAY /////////////////////////////////////////////////// -->
 		<div class = "display">
 			<table>
 				<tr>
@@ -41,8 +48,8 @@
 			</table>
 		</div>
 
+		<!-- ///// RECORDS DISPLAY ////////////////////////////////////////////////////// -->
 		<div class = "records">
-
 			<table>
 				{% for each in search_results %}
 				<tr>
@@ -54,7 +61,5 @@
 				{% endfor %}
 			</table>
 		</div>
-
-
 	</body>
 </html>

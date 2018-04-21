@@ -303,6 +303,7 @@ for each in range(100):
 	if location not in pf_locations:
 		pf_locations.append(location)
 
+
 # Petfinder Shelters Extra
 extra_shelters = ["IL74", "LA259", "MA370", "MI1025", "MI232", "MI331", "MI565", "MI579", "OH94", "ON401"]
 

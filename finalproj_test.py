@@ -24,6 +24,7 @@ from get_data import *
 import secrets
 from add_data import *
 from model import *
+from app import *
 
 
 
