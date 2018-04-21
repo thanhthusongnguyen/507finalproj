@@ -89,7 +89,7 @@ As you keep entering breed names, the page will refresh to display your most rec
 ## Limitations and Caveats
 As the data is constantly being updated (pets get adopted and added to their databases daily), you might have some difficultly running a new search and creating and populating a database. Because of the complicated nature of the how I structured my database tables (with MANY foreign keys referecing a plethora of other tables), incomplete shelter records have thrown a HUGE dent into the functionality of my program as they won't correctly add themselves to my database.
 
-Additionally, with the way the data and program is structures and the way the API method od set up, I can't simply find the shelters that have adoptable dogs and so there is some discrepancy between the list of shelters records and shelter references in the dog records database. I would highly recommend trying out the program with my cache downloaded as I have yet to create a solution to meet every unique bug and situation that I encountered. It's a work in progress and I am still learning.
+Additionally, with the way the data and program is structures and the way the API method od set up, I can't simply find the shelters that have adoptable dogs and so there is some discrepancy between the list of shelters records and shelter references in the dog records database. It's a work in progress and I am still learning.
 
 Thank you for your time.
 
